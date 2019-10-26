@@ -8,48 +8,48 @@
 IGameObject LocalPlayer;
 IGameObject Background;
 
+void OnTestButtonPress()
+{
+	std::cout << "test button pressed\n";
+}
+
 void IGameLogic::Update()
 {
-	if (Scene == -1)
+	if (Scene == Menu)
 	{
 		g_client.ClearObjects();
 
-		static bool IsSceneInitialized = false;
+		static bool bIsSceneInitialized = false;
 
-		if (!IsSceneInitialized)
+		// main menu objects		
+		static IGameObject TestButton;		
+
+		if (!bIsSceneInitialized)
 		{
-			LocalPlayer.IsEntity = true;
-			LocalPlayer.IsPlayer = true;
-			LocalPlayer.w = 124;
-			LocalPlayer.h = 76;
-			LocalPlayer.x = 640;
-			LocalPlayer.y = 360;
-			LocalPlayer.lpszTexturePath = (LPSTR)"images/localplayer.png";
-			LocalPlayer.Initialize();
+			TestButton.bIsButton = true;
+			TestButton.lpszName = (LPSTR)"TestButton";
+			TestButton.lpszTexturePath = (LPSTR)"images\\button.jpg";
+			TestButton.x = 100;
+			TestButton.y = 100;
+			TestButton.w = 184;
+			TestButton.h = 146;
+			TestButton.OnPress = (fnOnPress)OnTestButtonPress;
+			TestButton.Initialize();
 
-			IsSceneInitialized = true;
+			Background.lpszName = (LPSTR)"Background";
+			Background.lpszTexturePath = (LPSTR)"images\\background.jpg";
+			Background.x = 0;
+			Background.y = 0;
+			Background.w = 1280;
+			Background.h = 720;
+			Background.Initialize();
+			
+
+			bIsSceneInitialized = true;
 		}
+		
 
-		if (IsKeyPressed(VK_W))
-		{
-			if (LocalPlayer.y > 0) LocalPlayer.y -= 3;
-		}
-
-		if (IsKeyPressed(VK_A))
-		{
-			if (LocalPlayer.x > 0) LocalPlayer.x -= 3;
-		}
-
-		if (IsKeyPressed(VK_S))
-		{
-			if (LocalPlayer.y + LocalPlayer.h < g_config.Settings.height) LocalPlayer.y += 3;
-		}
-
-		if (IsKeyPressed(VK_D))
-		{
-			if (LocalPlayer.x + LocalPlayer.w < g_config.Settings.width) LocalPlayer.x += 3;
-		}
-
-		g_client.AddObject(LocalPlayer);
+		g_client.AddObject(Background);
+		g_client.AddObject(TestButton);
 	}
 }

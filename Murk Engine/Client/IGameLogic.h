@@ -1,9 +1,14 @@
 #pragma once
 
+enum SceneNumbers
+{
+	Menu = -1
+};
+
 class IGameLogic
 {
 public:
-	int Scene = -1;
+	int Scene = Menu;
 
 	void Update();
 };

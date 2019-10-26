@@ -27,7 +27,7 @@ void IGameObject::Initialize()
 
 void IGameObject::Render()
 {
-	if (lpSprite && lpTexture && IsShouldBeRendered)
+	if (lpSprite && lpTexture && bShouldBeRendered)
 	{
 		lpSprite->Begin(D3DXSPRITE_ALPHABLEND);
 		D3DXVECTOR3 v;
@@ -37,28 +37,41 @@ void IGameObject::Render()
 		lpSprite->Draw(lpTexture, 0, 0, &v, D3DCOLOR_ARGB(255, 255, 255, 255));
 		lpSprite->End();
 
-		if (IsButton)
+		if (bIsButton)
 		{
+			static DWORD dwTime;
+			if (GetTickCount64() - dwTime < 250)
+				return;
+
 			POINT pos;
 
 			pos.x = g_window.mousex;
 			pos.y = g_window.mousey;
 
 			if (GetAsyncKeyState(0x1) && pos.x >= this->x && pos.x <= this->x + this->w &&
-				pos.y >= this->y && pos.y <= this->y + this->h && GetForegroundWindow() == FindWindow(ClassName, 0))
-				IsPressed = true;
+				pos.y >= this->y && pos.y <= this->y + this->h && GetForegroundWindow() == FindWindow(ClassName, 0)) {
+				if (OnPress) OnPress();
+				bIsPressed = true;
+				dwTime = GetTickCount64();
+			}
 		}
 
-		if (IsCheckbox)
+		if (bIsCheckbox)
 		{
+			static DWORD dwTime;
+			if (GetTickCount64() - dwTime < 250)
+				return;
+
 			POINT pos;
 
 			pos.x = g_window.mousex;
 			pos.y = g_window.mousey;
 
 			if (GetAsyncKeyState(0x1) && pos.x >= this->x && pos.x <= this->x + this->w &&
-				pos.y >= this->y && pos.y <= this->y + this->h && GetForegroundWindow() == FindWindow(ClassName, 0))
-				* CheckboxBool = !*CheckboxBool;
+				pos.y >= this->y && pos.y <= this->y + this->h && GetForegroundWindow() == FindWindow(ClassName, 0)) {
+				if(CheckboxBool) *CheckboxBool = !*CheckboxBool;
+				dwTime = GetTickCount64();
+			}
 		}
 	}
 }

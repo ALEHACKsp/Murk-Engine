@@ -5,6 +5,8 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 
+typedef void(__stdcall* fnOnPress)();
+
 class IGameObject
 {
 public:
@@ -13,16 +15,17 @@ public:
 	int w = 0;
 	int h = 0;
 
-	bool IsText = 0;
-	bool IsPlayer = 0;
-	bool IsEntity = 0;
-	bool IsEnemy = 0;
-	bool IsButton = 0;
-	bool IsPressed = 0;
-	bool IsCheckbox = 0;
+	LPSTR lpszName;
+	bool bIsText = 0;
+	bool bIsPlayer = 0;
+	bool bIsEntity = 0;
+	bool bIsEnemy = 0;
+	bool bIsButton = 0;
+	bool bIsPressed = 0;
+	bool bIsCheckbox = 0;
 	bool* CheckboxBool = nullptr;
-	bool IsActive = 0;
-	bool IsShouldBeRendered = 1;
+	bool bIsActive = 0;
+	bool bShouldBeRendered = 1;
 
 	LPSTR lpszTexturePath = 0;
 	LPDIRECT3DTEXTURE9 lpTexture = 0;
@@ -30,4 +33,6 @@ public:
 
 	void Initialize();
 	void Render();
+
+	fnOnPress OnPress = nullptr;
 };
