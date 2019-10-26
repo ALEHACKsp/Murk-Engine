@@ -14,7 +14,6 @@ public:
 
 	int AddObject(IGameObject);
 	void ClearObjects();
-	void RenderText(int, int, DWORD, LPCSTR);
 };
 
 extern IClient g_client;
