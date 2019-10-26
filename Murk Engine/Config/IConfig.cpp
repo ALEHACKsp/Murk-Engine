@@ -70,7 +70,7 @@ void IConfig::Initialize()
 
 void IConfig::ApplySettings()
 {
-	DEVMODE dm;
+	/*DEVMODE dm;
 	dm.dmSize = sizeof(dm);
 
 	if (!Settings.windowed)
@@ -87,7 +87,7 @@ void IConfig::ApplySettings()
 	dm.dmFields = DM_PELSWIDTH | DM_PELSHEIGHT;
 	ChangeDisplaySettings(&dm, CDS_UPDATEREGISTRY);
 
-	SetWindowPos(g_window.hWindow, 0, 0, 0, dm.dmPelsWidth, dm.dmPelsHeight, 0);
+	SetWindowPos(g_window.hWindow, 0, 0, 0, dm.dmPelsWidth, dm.dmPelsHeight, 0);*/
 
 	ofstream file(szConfig);
 
