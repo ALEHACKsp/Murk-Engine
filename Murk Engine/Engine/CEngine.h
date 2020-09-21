@@ -18,25 +18,25 @@
 #define VK_S 0x53
 #define VK_D 0x44
 
-class IWindow
+class CWindow
 {
 public:
-	HWND hWindow;
-	LPSTR lpszClassName;
-	HINSTANCE hInst;
+	HWND m_hWindow;
+	LPSTR m_lpszClassName;
+	HINSTANCE m_hInst;
 
-	int mousex = 0, mousey = 0;
+	POINT m_posMouse;
 
-	LPDIRECT3DDEVICE9 pDevice;
-	LPDIRECT3D9 pD3D;
-	D3DPRESENT_PARAMETERS d3dpp;
+	LPDIRECT3DDEVICE9 m_pDevice;
+	LPDIRECT3D9 m_pD3D;
+	D3DPRESENT_PARAMETERS m_D3Dpp;
 
-	bool InitializeWindow(const char*, const char*, HINSTANCE);
-	void DeleteWindow();
+	bool InitializeWindow( );
+	void DeleteWindow( );
 
-	bool InitializeDevice();
-	void CleanupDevice();
-	void ResetDevice();
+	bool InitializeDevice( );
+	void CleanupDevice( );
+	void ResetDevice( );
 };
 
-extern IWindow g_window;
+inline CWindow* g_pWindow = new CWindow;

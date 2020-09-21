@@ -1,0 +1,12 @@
+
+.vs/Murk Engine/v16/.suo
+*.db
+*.ipch
+*.obj
+*.recipe
+*.log
+*.tlog
+*.pdb
+*.exe
+*.iobj
+*.ipdb
